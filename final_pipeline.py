@@ -6,22 +6,24 @@ from STT_process.google_speech_text import Voice_GGC
 from mobility_options_queries.routeComputer import RouteComputer
 from nlp.nlp import *
 
+import os
+
 ######### Greeting and request           #######
 
 # TODO play audio file
 
 # listen for the request
 listener = Listener()
-# listener.record_and_save('request')
-
+listener.record_and_save('start_address_2_addresses')
+listener.record_and_save('end_address_2_addresses')
 
 
 ######### Request understanding          #######
 
-# TODO speech to text
+# speech to text
 
-start_address_path = 'start_adress.wav'
-end_address_path = 'end_adress.wav'
+start_address_path = 'start_address_2_addresses.wav'
+end_address_path = 'end_address_2_addresses.wav'
 start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
 end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
 #drawing = Voice_GGC().draw(request_txt, "demand_1", figsize=(6,4))
@@ -29,7 +31,7 @@ print(start_request_txt)
 print(end_request_txt)
 
 
-# TODO NLP and generation of the request dictionnary
+# NLP and generation of the request dictionnary
 
 start_txt = get_data(start_request_txt)
 start_request = get_information(start_txt)
@@ -37,7 +39,6 @@ end_txt = get_data(end_request_txt)
 end_request = get_information(end_txt)
 print(start_request)
 print(end_request)
-
 
 
 ######### Request to HERE API            #######
