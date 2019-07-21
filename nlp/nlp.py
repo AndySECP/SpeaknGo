@@ -5,7 +5,6 @@
 import spacy
 from spacy import displacy
 from collections import Counter
-from pprint import pprint
 import joblib
 import argparse
 
@@ -15,8 +14,14 @@ nlp = spacy.load("en_core_web_sm")
 def get_data(file):
 	''' This function get the data from the json file '''
 
-	#Extract request text information from the json file
-	doc = joblib.load(file)
+	#Extract request text information from the json / joblib file
+    try:
+	   doc = joblib.load(file) or 
+    except:
+       doc = json.load(open(file, 'r'))
+    else:       
+       doc = file
+
 	#Transform the list of tokens into a single string
 	final = ' '.join(nlp(token).text_with_ws for token in doc["words"])
 
@@ -26,29 +31,33 @@ def get_data(file):
 #Extract location and date information using Scipy library
 
 def get_information(txt):
-
+    
     '''This function return the place to go and the time we should go.'''
 
-    doc = nlp(str(txt))
-    anx = [(X.text, X.label_) for X in doc.ents]
-
+    doc = nlp(str(txt))   
+    
     infos = {'Location':'', 'Date':''}
-
-    for tuple_ in anx:
-        if tuple_[1] in ['CARDINAL', 'LOC', 'ORG', 'FAC', 'GPE']:
-            infos['Location'] = infos['Location'] + ' ' + tuple_[0]
-        if tuple_[1] in ['TIME', 'DATE']:
-            infos['Date'] = infos['Date'] + ' ' + tuple_[0]
-
+    loc_starts, loc_ends = [], []
+    
+    #check what part of the string correspond to the location and to the date
+    for ent in doc.ents:
+        if ent.label_ in ['CARDINAL', 'LOC', 'ORG', 'FAC', 'GPE']:
+            loc_starts.append(ent.start_char)
+            loc_ends.append(ent.end_char)            
+        if ent.label_ in ['TIME', 'DATE']:
+            infos['Date'] = infos['Date'] + ' ' + ent.text
+    txt_ = str(doc)
+    infos['Location'] = txt_[min(loc_starts):max(loc_ends)+1]
+     
     #check if the location is an address or a point of interest
     address = False
-    loc = inf['Location']
+    loc = infos['Location']
     if any(char.isdigit() for char in loc): address = True
     if 'street' in loc.lower(): address = True
     if 'avenue' in loc.lower(): address = True
     infos['type'] = int(address)
 
-    return infos
+return infos
 
 
 if __name__ == '__main__':
