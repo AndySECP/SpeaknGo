@@ -33,7 +33,12 @@ infos = get_information(txt)
 # TODO determining type of request
 
 <<<<<<< HEAD
-dict_andy = {} #temp
+location = infos['Location']
+date = infos['Date']
+
+#is_address=1 if location is a full address, is_address=0 if location is a point of interest
+is_address = infos['Type']
+
 flag_location = True #temp
 
 routeComputer = RouteComputer()
