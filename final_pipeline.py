@@ -2,6 +2,7 @@
 
 from imports import *
 from STT_process.listener import Listener
+from nlp.nlp import *
 
 ######### Greeting and request           #######
 
@@ -19,12 +20,15 @@ listener.record_and_save('request')
 
 # TODO NLP and generation of the request dictionnary
 
+txt = get_data(request_txt)
+infos = get_information(txt)
+
 
 ######### Request to HERE API            #######
 
 # TODO determining type of request
 
-dict_andy = {}
+dict_andy = infos
 
 # TODO generate the options
 
