@@ -61,7 +61,7 @@ The users can do **two different kind of requests**:
 
 ## Pipeline Structure
 
-![ARCHI](./figures/pipeline_speakngo.PNG)
+![ARCHI](./figures/pipeline_speakngo.PNG) 
 
 ## Service
 
