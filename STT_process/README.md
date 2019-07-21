@@ -4,7 +4,7 @@ This module provide the knowledge to do the conversion Speech-To-Text with the u
 
 ## Files usage
 
-Use STT.py to provide the audio file you want to convert. 
+Use STT_run.py to provide the audio file you want to convert. 
 The output will be a dictionnary of all the words.
 
 
