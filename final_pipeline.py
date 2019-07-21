@@ -1,15 +1,15 @@
 ######### Imports                        #######
 
 from imports import *
-from listener import Listener
+from STT_process.listener import Listener
 
 ######### Greeting and request           #######
 
 # TODO play audio file
 
 # listen for the request
-listener = Listener('request')
-listener.record_and_save()
+listener = Listener()
+listener.record_and_save('request')
 
 
 
@@ -34,7 +34,8 @@ listener.record_and_save()
 
 ######### Choice of the preferred option #######
 
-# TODO listen for the request
+# listen for the request
+listener.record_and_save('final_choice')
 
 # TODO speech to text
 
@@ -44,4 +45,4 @@ listener.record_and_save()
 
 # TODO book ride (future work)
 
-# TODO set remider (future work)
+# TODO set reminder (future work)

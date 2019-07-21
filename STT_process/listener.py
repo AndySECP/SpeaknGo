@@ -2,17 +2,17 @@ import pyaudio
 import wave
 
 class Listener:
-    def __init__(self, filename):
-        self.filename = filename + '.wav'
-
+    def __init__(self):
         self.chunk = 1024
         self.format = pyaudio.paInt16
         self.channels = 1
         self.rate = 44100
         self.record_seconds = 5
 
-    def record_and_save(self):
+    def record_and_save(self, filename):
         p = pyaudio.PyAudio()
+
+        filename = filename + '.wav'
 
         stream = p.open(format=self.format,
                         channels=self.channels,
@@ -34,7 +34,7 @@ class Listener:
         stream.close()
         p.terminate()
 
-        wf = wave.open(self.filename, 'wb')
+        wf = wave.open(filename, 'wb')
         wf.setnchannels(self.format)
         wf.setsampwidth(p.get_sample_size(self.format))
         wf.setframerate(self.rate)

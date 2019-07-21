@@ -16,6 +16,8 @@ import pyaudio
 import spacy
 import argparse
 import en_core_web_sm
+import pyaudio
+import wave
 
 # Google Cloud package
 from google.oauth2 import service_account

@@ -5,7 +5,10 @@
 import spacy
 from spacy import displacy
 from collections import Counter
+<<<<<<< HEAD
+=======
 from pprint import pprint
+>>>>>>> 67b4b3f0bc0af75cf6fcd6e279d9647d3b1b42cd
 import joblib
 import argparse
 
@@ -16,7 +19,11 @@ def get_data(file):
 	''' This function get the data from the json file '''
 
 	#Extract request text information from the json file
+<<<<<<< HEAD
+	doc = joblib.load(file)	
+=======
 	doc = joblib.load(file)
+>>>>>>> 67b4b3f0bc0af75cf6fcd6e279d9647d3b1b42cd
 	#Transform the list of tokens into a single string
 	final = ' '.join(nlp(token).text_with_ws for token in doc["words"])
 
@@ -35,10 +42,18 @@ def get_information(txt):
     infos = {'Location':'', 'Date':''}
     
     for tuple_ in anx:
-        if tuple_[1] in ['CARDINAL', 'LOC', 'ORG', 'FAC']:
+        if tuple_[1] in ['CARDINAL', 'LOC', 'ORG', 'FAC', 'GPE']:
             infos['Location'] = infos['Location'] + ' ' + tuple_[0]
         if tuple_[1] in ['TIME', 'DATE']:
             infos['Date'] = infos['Date'] + ' ' + tuple_[0]
+
+    #check if the location is an address or a point of interest
+    address = False
+    loc = inf['Location']
+    if any(char.isdigit() for char in loc): address = True
+    if 'street' in loc.lower(): address = True
+    if 'avenue' in loc.lower(): address = True
+    infos['type'] = int(address)
             
     return infos
 
