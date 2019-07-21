@@ -14,6 +14,11 @@ The Washington Post
 
 Two UI have been created: a smartphone widget to easily request the ride and have all the information stored on the phone and a number to call to make the request for users that does not have a smartphone. 
 
+### Equitable 
+
+How can we make transportation more accessible to everyone in society? 
+Through this project, our main targets are the **elderly** and the **disables**. Both face barriers when it come to do activities that necessitate to travel. Some people are not used to the new applications that gives access to modern transportation. Some cannot use the traditional tools to make reservations or choose a service, such as blind people. The main issue with those situations is the diffulty of using the UI of traditional services. Our solution
+
 ## Speech to text
 
 This module provide the knowledge to do the conversion Speech-To-Text with the use of the **API of Google Speech**.
