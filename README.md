@@ -75,7 +75,7 @@ Yet, as some users, especially among the elderly, might not use smartphones on a
 
 ## Example of App service
 
-![ARCHI](./figures/app.PNG) 
+<p align="center"> <img align="center" width="200" height="200" src='/figures/app.PNG'></p> 
 
 
 
