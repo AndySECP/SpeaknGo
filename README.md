@@ -1,4 +1,4 @@
-# Speak&Go
+﻿# Speak&Go
 2019 - Project for Hackmobility 2019, merging the issues of Inclusion, Mobility and Artificial Intelligence 
 
 ## Abstract 
@@ -15,6 +15,21 @@ The Washington Post
 Two UI have been created: a smartphone widget to easily request the ride and have all the information stored on the phone and a number to call to make the request for users that does not have a smartphone. 
 
 ## Speech to text
+
+This module provide the knowledge to do the conversion Speech-To-Text with the use of the API of Google Speech.
+
+## Files usage
+
+Use STT_run.py to provide the audio file you want to convert. 
+The output will be a dictionnary of all the words.
+
+## Example
+
+We displayed a drawing of the words over a timeline to be able to evaluate the success of the service. 
+
+![SERVICE](./figures/example_start_adress.png)
+![SERVICE](./figures/example_end_adress.png)
+
 
 ## Natural Language Processing
 
