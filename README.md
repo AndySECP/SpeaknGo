@@ -73,6 +73,10 @@ Yet, as some users, especially among the elderly, might not use smartphones on a
 
 ![old_version_samsung](https://user-images.githubusercontent.com/38164557/61590148-11cbde80-ab69-11e9-929f-95c6c140d5e7.JPG)
 
+## Example of App service
+
+![ARCHI](./figures/app.PNG) 
+
 
 
 
