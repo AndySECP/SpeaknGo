@@ -4,11 +4,13 @@
 
 
 import wave
-import os
-import json
-import yaml
 import io
-import requests
+
+# Google Cloud package
+from google.oauth2 import service_account
+from google.cloud import speech
+from google.cloud.speech import enums
+from google.cloud.speech import types
 
 class Voice_GGC:
 
