@@ -30,7 +30,7 @@ class RouteComputer:
 
         return pos
 
-    def getOption(self, start_pos, end_pos, time, transportation_type):
+    def getOptionTwoAdresses(self, start_pos, end_pos, time, transportation_type):
         """Returns the characteristics dictionary for a trip from start_pos to end_pos with the chosen transportation type
 
         Parameters
@@ -89,7 +89,7 @@ class RouteComputer:
         characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
 
         return characteristics
-
+        
 
     # option_list is a list of dictionaries
     def displayOptions(self, option_list):

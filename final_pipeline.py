@@ -13,17 +13,17 @@ import os
 
 listener = Listener()
 
-greeting_text_1 = 'Hello, please say your current location'
+greeting_text_1 = 'Welcome to Speak N Go, please say your current location'
 tts = gTTS(greeting_text_1)
 tts.save('greeting_text_1.mp3')
-os.system('afplay greeting_text_1.mp3')
+# os.system('afplay greeting_text_1.mp3')
 
 # listener.record_and_save('start_address_2_addresses')
 
 greeting_text_2 = 'And please say your desired destination'
 tts = gTTS(greeting_text_2)
 tts.save('greeting_text_2.mp3')
-os.system('afplay greeting_text_2.mp3')
+# os.system('afplay greeting_text_2.mp3')
 
 
 # listener.record_and_save('end_address_2_addresses')
@@ -33,8 +33,8 @@ os.system('afplay greeting_text_2.mp3')
 
 # speech to text
 
-start_address_path = 'start_address_2_addresses.wav'
-end_address_path = 'end_address_2_addresses.wav'
+start_address_path = 'start_address_supermarket.wav'
+end_address_path = 'end_address_supermarket.wav'
 start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
 end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
 #drawing = Voice_GGC().draw(request_txt, "demand_1", figsize=(6,4))
@@ -59,11 +59,11 @@ print(end_request)
 start_location = start_request['Location']
 end_location = end_request['Location']
 date = start_request['Date']
-is_address = end_request['type'] #is_address=1 if location is a full address, is_address=0 if location is a point of interest
+is_poi = end_request['type']
 
 routeComputer = RouteComputer()
 
-if is_address:
+if not is_poi:
 
     # compute the GPS position corresponding to the adress
     start_pos = routeComputer.computeLatLonFromAdress(start_location)
@@ -72,7 +72,7 @@ if is_address:
 
     list_of_options = []
     for transportation_type in transportation_types:
-        list_of_options.append(routeComputer.getOption(start_pos, end_pos, time, transportation_type))
+        list_of_options.append(routeComputer.getOptionTwoAdresses(start_pos, end_pos, time, transportation_type))
 
 else:
     # TODO
@@ -121,6 +121,8 @@ listener.record_and_save('final_choice')
 
 final_choice_path = 'final_choice.wav'
 final_choice_text = Voice_GGC().request(final_choice_path)
+
+print(final_choice_text)
 
 
 # TODO NLP to understand if option 1 or 2 is perferred

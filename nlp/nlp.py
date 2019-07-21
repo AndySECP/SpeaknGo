@@ -8,6 +8,7 @@ from collections import Counter
 import joblib
 import argparse
 import json
+import numpy as np
 
 nlp = spacy.load("en_core_web_sm")
 
@@ -42,14 +43,17 @@ def get_information(txt):
 	loc_starts, loc_ends = [], []
 
 	#check what part of the string correspond to the location and to the date
-	for ent in doc.ents:
-		if ent.label_ in ['CARDINAL', 'LOC', 'ORG', 'FAC', 'GPE']:
-			loc_starts.append(ent.start_char)
-			loc_ends.append(ent.end_char)
-		if ent.label_ in ['TIME', 'DATE']:
-			infos['Date'] = infos['Date'] + ' ' + ent.text
-	txt_ = str(doc)
-	infos['Location'] = txt_[min(loc_starts):max(loc_ends)+1]
+	try:
+		for ent in doc.ents:
+			if ent.label_ in ['CARDINAL', 'LOC', 'ORG', 'FAC', 'GPE']:
+				loc_starts.append(ent.start_char)
+				loc_ends.append(ent.end_char)
+			if ent.label_ in ['TIME', 'DATE']:
+				infos['Date'] = infos['Date'] + ' ' + ent.text
+		txt_ = str(doc)
+		infos['Location'] = txt_[min(loc_starts):max(loc_ends)+1]
+	except:
+		pass
 
     #check if the location is an address or a point of interest
 	address = False
@@ -58,6 +62,17 @@ def get_information(txt):
 	if 'street' in loc.lower(): address = True
 	if 'avenue' in loc.lower(): address = True
 	infos['type'] = int(address)
+
+	if not address:
+		list_txt = txt.split(' ')
+		longest_length = len(list_txt[0])
+		longest_word = list_txt[0]
+		for word in list_txt[1:]:
+			if len(word) > longest_length:
+				longest_length = len(word)
+				longest_word = word
+
+		infos['Location'] = longest_word
 
 	return infos
 
