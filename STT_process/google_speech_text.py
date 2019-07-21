@@ -1,6 +1,6 @@
 #Author: Pierre-Louis Missler       (ref. Meryll Dindin @coricos)
 #Date: 7/20/2019
-#Project: Hackmobility 2019 @SF 
+#Project: Hackmobility 2019 @SF
 
 
 import wave
@@ -19,7 +19,7 @@ from google.cloud.speech import types
 
 class Voice_GGC:
 
-    def __init__(self, credentials='api-key.json'):
+    def __init__(self, credentials='STT_process/api-key.json'):
 
         crd = service_account.Credentials.from_service_account_file(credentials)
         self.stt = speech.SpeechClient(credentials=crd)

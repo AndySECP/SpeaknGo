@@ -3,11 +3,8 @@
 from imports import *
 from STT_process.listener import Listener
 from STT_process.google_speech_text import Voice_GGC
-<<<<<<< HEAD
 from mobility_options_queries.routeComputer import RouteComputer
-=======
 from nlp.nlp import *
->>>>>>> a5167cdba8a934f5456b418172bc1d595be34def
 
 ######### Greeting and request           #######
 
@@ -23,38 +20,43 @@ listener = Listener()
 
 # TODO speech to text
 
-s_path = 'request.wav'
-text = Voice_GGC().request(s_path)
-#drawing = Voice_GGC().draw(text, "demand_1", figsize=(6,4))
-#print(text)
+start_address_path = 'start_adress.wav'
+end_address_path = 'end_adress.wav'
+start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
+end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
+#drawing = Voice_GGC().draw(request_txt, "demand_1", figsize=(6,4))
+print(start_request_txt)
+print(end_request_txt)
 
 
 # TODO NLP and generation of the request dictionnary
 
-txt = get_data(request_txt)
-infos = get_information(txt)
+start_txt = get_data(start_request_txt)
+start_request = get_information(start_txt)
+end_txt = get_data(end_request_txt)
+end_request = get_information(end_txt)
+print(start_request)
+print(end_request)
+
 
 
 ######### Request to HERE API            #######
 
 # TODO determining type of request
 
-<<<<<<< HEAD
-location = infos['Location']
-date = infos['Date']
+start_location = start_request['Location']
+end_location = end_request['Location']
+date = start_request['Date']
+is_address = end_request['type'] #is_address=1 if location is a full address, is_address=0 if location is a point of interest
 
-#is_address=1 if location is a full address, is_address=0 if location is a point of interest
-is_address = infos['Type']
-
-flag_location = True #temp
 
 routeComputer = RouteComputer()
-if flag_location:
+
+if is_address:
 
     # compute the GPS position corresponding to the adress
-    start_pos = routeComputer.computeLatLonFromAdress('44 Tehama San Francisco CA') #temp
-    end_pos = routeComputer.computeLatLonFromAdress('111 Charles Sunnyvale CA') #temp
-    time = '2019-07-20T12:00:00' #temp
+    start_pos = routeComputer.computeLatLonFromAdress(start_location)
+    end_pos = routeComputer.computeLatLonFromAdress(end_location)
     transportation_types = ["car", "pedestrian", "public transport"]
 
     list_of_options = []
@@ -62,9 +64,7 @@ if flag_location:
         characteristics = routeComputer.getOption(start_pos, end_pos, time, transportation_type)
 
         print(characteristics)
-=======
-dict_andy = infos
->>>>>>> a5167cdba8a934f5456b418172bc1d595be34def
+
 
 # TODO generate the options
 
@@ -72,11 +72,11 @@ dict_andy = infos
 
 # TODO generate the audio file
 
-tts = gTTS('Here are the two options.' + {transport}[0] + 'for a duration of' +{duration}[0] + 'and a cost of'
-           {cost}[0] '.'+ 'or' + {transport}[1])'for a duration of' +{duration}[1] + 'and a cost of'
-           {cost}[1] '.'
-tts.save('options.mp3')
-os.system('start current_location.mp3')
+# tts = gTTS('Here are the two options.' + {transport}[0] + 'for a duration of' +{duration}[0] + 'and a cost of'
+#            {cost}[0] '.'+ 'or' + {transport}[1])'for a duration of' +{duration}[1] + 'and a cost of'
+#            {cost}[1] '.'
+# tts.save('options.mp3')
+# os.system('start current_location.mp3')
 
 
 ######### Choice of the preferred option #######

@@ -59,15 +59,18 @@ class RouteComputer:
         if transportation_type.lower() == "car":
             response = routingApi.car_route(start_pos, end_pos)
             characteristics['type'] = "car"
-            # characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609 # in miles
-            # characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
-            characteristics['price'] = 0.80 + 0.21*characteristics['time']/60 + 1.10*characteristics['distance']/1000/1.6
+            characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609) # in miles
+            characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
+            characteristics['price'] = 0.80 + 0.21*characteristics['time'] + 1.10*characteristics['distance']
         elif transportation_type.lower() == "pedestrian":
             response = routingApi.pedastrian_route(start_pos, end_pos)
             characteristics['type'] = "pedestrian"
             characteristics['price'] = 0
         elif transportation_type.lower() == "public transport":
             response = routingApi.public_transport(start_pos, end_pos, False)
+
+            print(response)
+
             characteristics['type'] = "public transport"
 
             route_public_transport = routingPublicTransportApi.calculate_route(start_pos, end_pos, time)
@@ -82,7 +85,7 @@ class RouteComputer:
         else:
             raise NotImplementedError
 
-        characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609 # in miles
+        characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609) # in miles
         characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
 
         return characteristics
