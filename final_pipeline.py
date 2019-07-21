@@ -16,14 +16,15 @@ listener = Listener()
 greeting_text_1 = 'Hello, please say your current location'
 tts = gTTS(greeting_text_1)
 tts.save('greeting_text_1.mp3')
-os.system('start greeting_text_1.mp3')
+os.system('afplay greeting_text_1.mp3')
 
 # listener.record_and_save('start_address_2_addresses')
 
-greeting_text_2 = 'Hello, please say your desired destination'
+greeting_text_2 = 'And please say your desired destination'
 tts = gTTS(greeting_text_2)
 tts.save('greeting_text_2.mp3')
-os.system('start greeting_text_2.mp3')
+os.system('afplay greeting_text_2.mp3')
+
 
 # listener.record_and_save('end_address_2_addresses')
 
@@ -77,58 +78,54 @@ else:
     # TODO
     pass
 
-# proposing alternatives
-
-print(list_of_options)
-
-if is_address:
-    pass
 
 ######### Presentation of the options    #######
 
 #compute the statistics of the options
-mean_dist = np.mean([list_opp[i]['distance'] for i in range(len(list_opp))])
-mean_price = np.mean([list_opp[i]['price'] for i in range(len(list_opp))])
-mean_time = np.mean([list_opp[i]['time'] for i in range(len(list_opp))])
-std_dist = np.std([list_opp[i]['distance'] for i in range(len(list_opp))])
-std_price = np.std([list_opp[i]['price'] for i in range(len(list_opp))])
-std_time = np.std([list_opp[i]['time'] for i in range(len(list_opp))])
+mean_dist = np.mean([list_of_options[i]['distance'] for i in range(len(list_of_options))])
+mean_price = np.mean([list_of_options[i]['price'] for i in range(len(list_of_options))])
+mean_time = np.mean([list_of_options[i]['time'] for i in range(len(list_of_options))])
+std_dist = np.std([list_of_options[i]['distance'] for i in range(len(list_of_options))])
+std_price = np.std([list_of_options[i]['price'] for i in range(len(list_of_options))])
+std_time = np.std([list_of_options[i]['time'] for i in range(len(list_of_options))])
 
-#add a filter: if a value is two standard deviation away or if one option proposes more than two hours of walking, we remove this option 
-for i, choice in enumerate(list_opp):    
+#add a filter: if a value is two standard deviation away or if one option proposes more than two hours of walking, we remove this option
+for i, choice in enumerate(list_of_options):
     if (choice['distance'] >= mean_dist + 2 * std_dist) or (choice['time'] >= mean_time + 2 * std_time) or (choice['price'] >= mean_time + 2 * std_time):
-        del list_opp[i]
+        del list_of_options[i]
     if choice['type'] == 'pedestrian' and choice['time'] >= 120:
-        del list_opp[i]
+        del list_of_options[i]
 
 #compute the message to send to the user
-proposition = 'You have {} options.'.format(len(list_opp))
-for i in range(len(list_opp)):
-    prop_anx = 'You can choose the {} with a distance of {} miles, that would take {} minutes, for a price of {} dollars.'.format(list_opp[i]['type'], list_opp[i]['distance'], list_opp[i]['time'], list_opp[i]['price'])
+proposition = 'You have {} options.'.format(len(list_of_options))
+for i in range(len(list_of_options)):
+    prop_anx = 'You can choose the {} with a distance of {} miles, that would take {} minutes, for a price of {} dollars.'.format(list_of_options[i]['type'], list_of_options[i]['distance'], list_of_options[i]['time'], list_of_options[i]['price'])
     proposition = proposition + ' ' + prop_anx
 proposition = proposition + ' ' + 'Which option do you prefer?'
 
-# TODO generate the audio file
+print(proposition)
 
-# tts = gTTS('Here are the two options.' + {transport}[0] + 'for a duration of' +{duration}[0] + 'and a cost of'
-#            {cost}[0] '.'+ 'or' + {transport}[1])'for a duration of' +{duration}[1] + 'and a cost of'
-#            {cost}[1] '.'
-# tts.save('options.mp3')
-# os.system('start current_location.mp3')
+# generate the audio file
+
+tts = gTTS(proposition)
+tts.save('proposition.mp3')
+os.system('afplay proposition.mp3')
 
 
 ######### Choice of the preferred option #######
 
 # listen for the request
-# listener.record_and_save('final_choice')
+listener.record_and_save('final_choice')
 
-# TODO speech to text
+# speech to text
 
-s_path = 'final_choice.wav'
-text = Voice_GGC().request(s_path)
+final_choice_path = 'final_choice.wav'
+final_choice_text = Voice_GGC().request(final_choice_path)
 
 
 # TODO NLP to understand if option 1 or 2 is perferred
+
+
 
 ######### Ordering of the ride if needed #######
 
