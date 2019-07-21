@@ -1,6 +1,7 @@
 ## Speak&Go
 2019 - Project for Hackmobility 2019, merging the issues of Inclusion, Mobility and Artificial Intelligence 
 <p align="center"> <img align="center" width="200" height="200" src='/figures/speakngo_logo_200x200.png'></p>
+
 ## Abstract 
 
 *"Many communities have ample transportation services for their elderly and residents with disabilities who don’t drive, but those services are often too difficult to find, according to a new national survey.*
