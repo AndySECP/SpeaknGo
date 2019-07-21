@@ -28,5 +28,14 @@ We are using HERE's API (https://developer.here.com/) to query possible mobility
 
 ## Service
 
+Two UI are design, the first one for user that use smartphone. This one is based on an Android interactive widget.
+
+![mobile_ui](https://user-images.githubusercontent.com/38164557/61587176-d1a13780-ab39-11e9-9052-48e869b0109b.JPG)
+
+Yet, as some user, especially among the elderly, might not used smartphone on a daily basis, a simpler UI is also design. This only consists in calling a number on any usable phone.
+
+![old_version](https://user-images.githubusercontent.com/38164557/61587186-fc8b8b80-ab39-11e9-9d82-16bb5fc3cbd0.JPG)
+
+
 
 
