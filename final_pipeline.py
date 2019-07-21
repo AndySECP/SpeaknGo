@@ -10,12 +10,22 @@ import os
 
 ######### Greeting and request           #######
 
-# TODO play audio file
 
-# listen for the request
 listener = Listener()
-listener.record_and_save('start_address_2_addresses')
-listener.record_and_save('end_address_2_addresses')
+
+greeting_text_1 = 'Hello, please say your current location'
+tts = gTTS(greeting_text_1)
+tts.save('greeting_text_1.mp3')
+os.system('start greeting_text_1.mp3')
+
+# listener.record_and_save('start_address_2_addresses')
+
+greeting_text_2 = 'Hello, please say your desired destination'
+tts = gTTS(greeting_text_2)
+tts.save('greeting_text_2.mp3')
+os.system('start greeting_text_2.mp3')
+
+# listener.record_and_save('end_address_2_addresses')
 
 
 ######### Request understanding          #######
