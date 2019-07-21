@@ -1,5 +1,6 @@
-﻿# Speak&Go
+## Speak&Go
 2019 - Project for Hackmobility 2019, merging the issues of Inclusion, Mobility and Artificial Intelligence 
+<p align="center"> <img align="center" width="200" height="200" src='/figures/speakngo_logo_200x200.png'></p>
 
 ## Abstract 
 
@@ -47,6 +48,10 @@ python nlp.py -r request.json
 ## Determination of the best ride
 
 We are using HERE's API (https://developer.here.com/) to query possible mobility options, along with their details such as the mode or services, total time needed, departure time associated, and cost. We can then select a limited few that would be relevant to the user, and suggest those options to the user.
+
+## Pipeline Structure
+
+[SERVICE](./figures/pipeline_speakngo.png)
 
 ## Service
 
