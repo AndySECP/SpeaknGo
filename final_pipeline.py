@@ -42,13 +42,12 @@ print(end_request)
 
 ######### Request to HERE API            #######
 
-# TODO determining type of request
+# finding alternatives
 
 start_location = start_request['Location']
 end_location = end_request['Location']
 date = start_request['Date']
 is_address = end_request['type'] #is_address=1 if location is a full address, is_address=0 if location is a point of interest
-
 
 routeComputer = RouteComputer()
 
@@ -61,12 +60,18 @@ if is_address:
 
     list_of_options = []
     for transportation_type in transportation_types:
-        characteristics = routeComputer.getOption(start_pos, end_pos, time, transportation_type)
+        list_of_options.append(routeComputer.getOption(start_pos, end_pos, time, transportation_type))
 
-        print(characteristics)
+else:
+    # TODO
+    pass
 
+# proposing alternatives
 
-# TODO generate the options
+print(list_of_options)
+
+if is_address:
+    pass
 
 ######### Presentation of the options    #######
 
