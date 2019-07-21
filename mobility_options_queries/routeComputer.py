@@ -63,7 +63,7 @@ class RouteComputer:
                 characteristics['type'] = "car"
                 characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609) # in miles
                 characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
-                characteristics['price'] = 0.80 + 0.21*characteristics['time'] + 1.10*characteristics['distance']
+                characteristics['price'] = 2 + 0.21*characteristics['time'] + 1.10*characteristics['distance']
             elif transportation_type.lower() == "by foot":
                 response = routingApi.pedastrian_route(start_pos, end_pos)
                 characteristics['type'] = "by foot"

@@ -18,7 +18,7 @@ tts = gTTS(greeting_text_1)
 tts.save('greeting_text_1.mp3')
 os.system('afplay greeting_text_1.mp3')
 
-listener.record_and_save('start_address')
+# listener.record_and_save('start_address_2_addresses')
 
 greeting_text_2 = 'And please say your desired destination'
 tts = gTTS(greeting_text_2)
@@ -26,15 +26,15 @@ tts.save('greeting_text_2.mp3')
 os.system('afplay greeting_text_2.mp3')
 
 
-listener.record_and_save('end_address')
+# listener.record_and_save('end_address_2_addresses')
 
 
 ######### Request understanding          #######
 
 # speech to text
 
-start_address_path = 'start_address.wav'
-end_address_path = 'end_address.wav'
+start_address_path = 'start_address_2_addresses.wav'
+end_address_path = 'end_address_2_addresses.wav'
 start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
 end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
 # drawing = Voice_GGC().draw(start_address_path, "demand_1", figsize=(6,4))
@@ -99,6 +99,7 @@ else:
 for i, option in enumerate(list_of_options):
     print('OPTION n°{}'.format(i+1))
     print('Type:     ', option['type'])
+    print('Distance: ', option['distance'])
     print('Price:    ', option['price'])
     print('Time:     ', option['time'])
     print('\n')
@@ -125,7 +126,7 @@ for i, choice in enumerate(list_of_options):
 #compute the message to send to the user
 proposition = 'You have {} options.'.format(len(list_of_options))
 for i in range(len(list_of_options)):
-    prop_anx = 'You can choose the {}, taking {} minutes, and costing {} dollars.'.format(list_of_options[i]['type'], int(list_of_options[i]['time']), int(list_of_options[i]['price']))
+    prop_anx = 'You can choose the {}, taking {} minutes, and costing {} dollars.'.format(list_of_options[i]['type'], int(list_of_options[i]['distance']), int(list_of_options[i]['time']), int(list_of_options[i]['price']))
     proposition = proposition + ' ' + prop_anx
 proposition = proposition + ' ' + 'Which option do you prefer?'
 

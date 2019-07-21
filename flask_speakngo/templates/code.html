@@ -1,5 +1,5 @@
 <html>
-  <head>    
+  <head>
   </head>
   <body>
     <input type="button" id='script' name="scriptbutton" value=" Run Script " onclick="goPython()">
@@ -9,7 +9,7 @@
     <script>
         function goPython(){
             $.ajax({
-              url: "SpeaknGo/final_pipeline.py",
+              url: "final_pipeline.py",
              context: document.body
             }).done(function() {
              alert('finished python script');;
