@@ -18,7 +18,9 @@ Two UI have been created: a smartphone widget to easily request the ride and hav
 
 ## Natural Language Processing
 
-Using the text generated in a json format, a NLP Named Entity Recognition model is used to exctract relevant information out of the request. The function get_information return a dictionary with two keys: location and date. 
+![NER](https://user-images.githubusercontent.com/38164557/61586711-a44f8c00-ab2f-11e9-870c-8d8bc7f91138.JPG)
+
+Using the text generated in a json format, a NLP **Named Entity Recognition** model is used to exctract relevant information out of the request. The function get_information return a dictionary with two keys: location and date. 
 
 ## Determination of the best ride
 
