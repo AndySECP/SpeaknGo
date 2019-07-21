@@ -127,6 +127,23 @@ print(final_choice_text)
 
 # TODO NLP to understand if option 1 or 2 is perferred
 
+def intersection(lst1, lst2): 
+    lst3 = [value for value in lst1 if value in lst2] 
+    return lst3 
+
+template = ['first', 'second', 'third', 'one', 'two', 'three']
+words = final_choice_text.lower().split()
+out = intersection(words, template)
+
+if len(out)>1:
+    print('You sould only choose one option. Please, repeat your choice.')
+
+if out[0] == 'one' or out[0] == 'first':
+    decision = 1
+if out[0] == 'two' or out[0] =='second':
+    decision = 2
+if out[0] == 'three' or out[0] == 'third':
+    decision = 3
 
 
 ######### Ordering of the ride if needed #######
