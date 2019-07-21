@@ -13,8 +13,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
 import pyaudio
-
-
+import spacy
+import argparse
+import en_core_web_sm
 
 # Google Cloud package
 from google.oauth2 import service_account
