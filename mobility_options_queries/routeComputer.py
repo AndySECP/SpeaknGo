@@ -69,9 +69,9 @@ class RouteComputer:
         elif transportation_type.lower() == "public transport":
             response = routingApi.public_transport(start_pos, end_pos, False)
 
-            print(response)
-
             characteristics['type'] = "public transport"
+
+            time = '2019-07-21T08:00:00'
 
             route_public_transport = routingPublicTransportApi.calculate_route(start_pos, end_pos, time)
 
