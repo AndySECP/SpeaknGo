@@ -58,9 +58,9 @@ print(end_pos)
 #
 # priceCar = 0.80 + 0.21*timeCar/60 + 1.10*distanceCar/1000/1.6
 #
-# print('Car               Distance (km): {}, Time (min): {}'.format(distanceCar/1000, timeCar/60))
-# print('Pedestrian        Distance (km): {}, Time (min): {}, cost ($): {}'.format(distancePedestrian/1000, timePedestrian/60, priceCar))
-# print('Public transport  Distance (km): {}, Time (min): {}, Cost ($): {}'.format(distancePublicTransport/1000, timePublicTransport/60, pricePublicTransport))
+print('Pedestrian        Distance (km): {0:.2f}, Time (min): {1:.2f}'.format(distancePedestrian/1000, timePedestrian/60))
+print('Car               Distance (km): {0:.2f}, Time (min): {1:.2f}, Cost ($): {2:.2f}'.format(distanceCar/1000, timeCar/60, priceCar))
+print('Public transport  Distance (km): {0:.2f}, Time (min): {1:.2f}, Cost ($): {2:.2f}'.format(distancePublicTransport/1000, timePublicTransport/60, pricePublicTransport))
 
 
 ######

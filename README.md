@@ -1,4 +1,4 @@
-# Speak&Go
+﻿# Speak&Go
 2019 - Project for Hackmobility 2019, merging the issues of Inclusion, Mobility and Artificial Intelligence 
 
 ## Abstract 
@@ -16,11 +16,28 @@ Two UI have been created: a smartphone widget to easily request the ride and hav
 
 ## Speech to text
 
+This module provide the knowledge to do the conversion Speech-To-Text with the use of the API of Google Speech.
+
+Use STT_run.py to provide the audio file you want to convert. 
+The output will be a dictionnary of all the words.
+
+We displayed a drawing of the words over a timeline to be able to evaluate the success of the service. 
+
+![SERVICE](./STT_process/figures/example_start_adress.png)
+![SERVICE](./STT_process/figures/example_end_adress.png)
+
+
 ## Natural Language Processing
 
 ![NER](https://user-images.githubusercontent.com/38164557/61586711-a44f8c00-ab2f-11e9-870c-8d8bc7f91138.JPG)
 
 Using the text generated in a json format, a NLP **Named Entity Recognition** model is used to extract relevant information out of the request. The function get_information returns a dictionary with two keys: location and date. 
+
+Query to extract location and date information form a json file:
+
+```python
+python nlp.py -r request.json
+```
 
 ## Determination of the best ride
 
