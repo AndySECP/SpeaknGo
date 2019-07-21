@@ -5,10 +5,7 @@
 import spacy
 from spacy import displacy
 from collections import Counter
-<<<<<<< HEAD
-=======
 from pprint import pprint
->>>>>>> 67b4b3f0bc0af75cf6fcd6e279d9647d3b1b42cd
 import joblib
 import argparse
 
@@ -19,11 +16,7 @@ def get_data(file):
 	''' This function get the data from the json file '''
 
 	#Extract request text information from the json file
-<<<<<<< HEAD
-	doc = joblib.load(file)	
-=======
 	doc = joblib.load(file)
->>>>>>> 67b4b3f0bc0af75cf6fcd6e279d9647d3b1b42cd
 	#Transform the list of tokens into a single string
 	final = ' '.join(nlp(token).text_with_ws for token in doc["words"])
 
@@ -33,14 +26,14 @@ def get_data(file):
 #Extract location and date information using Scipy library
 
 def get_information(txt):
-    
+
     '''This function return the place to go and the time we should go.'''
 
     doc = nlp(str(txt))
     anx = [(X.text, X.label_) for X in doc.ents]
-    
+
     infos = {'Location':'', 'Date':''}
-    
+
     for tuple_ in anx:
         if tuple_[1] in ['CARDINAL', 'LOC', 'ORG', 'FAC', 'GPE']:
             infos['Location'] = infos['Location'] + ' ' + tuple_[0]
@@ -54,14 +47,14 @@ def get_information(txt):
     if 'street' in loc.lower(): address = True
     if 'avenue' in loc.lower(): address = True
     infos['type'] = int(address)
-            
+
     return infos
 
 
 if __name__ == '__main__':
 
     # Initialize the arguments
-    prs = argparse.ArgumentParser()    
+    prs = argparse.ArgumentParser()
     prs.add_argument('-r', '--request', help='Request file', type=str, default='request.json')
     prs = prs.parse_args()
 

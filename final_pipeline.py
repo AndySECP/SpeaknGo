@@ -24,6 +24,8 @@ listener.record_and_save('request')
 
 # TODO determining type of request
 
+dict_andy = {}
+
 # TODO generate the options
 
 ######### Presentation of the options    #######
