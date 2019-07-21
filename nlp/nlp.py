@@ -14,8 +14,14 @@ nlp = spacy.load("en_core_web_sm")
 def get_data(file):
 	''' This function get the data from the json file '''
 
-	#Extract request text information from the json file
-	doc = joblib.load(file)
+	#Extract request text information from the json / joblib file
+    try:
+	   doc = joblib.load(file) or 
+    except:
+       doc = json.load(open(file, 'r'))
+    else:       
+       doc = file
+
 	#Transform the list of tokens into a single string
 	final = ' '.join(nlp(token).text_with_ws for token in doc["words"])
 

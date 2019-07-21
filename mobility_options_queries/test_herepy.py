@@ -7,7 +7,7 @@ import numpy as np
 
 def getOption(start_pos, end_pos, time, transportation_type):
     """Returns the characteristics dictionary for a trip from start_pos to end_pos with the chosen transportation type
-    
+
     Parameters
     ----------
     start_pos : Array [Longitude, Latitude]
@@ -18,11 +18,11 @@ def getOption(start_pos, end_pos, time, transportation_type):
         Starting time
     transportation_type : String
         So far, must be "car", "pedestrian" or "public transport"
-    
+
     Returns
     -------
     Dictionary
-        A dictionary of the characteristics: 
+        A dictionary of the characteristics:
         Distance (in meters), time (in seconds), type (car, pedestrian, public transport), price ($)
     """
 
@@ -49,16 +49,16 @@ def getOption(start_pos, end_pos, time, transportation_type):
 
         for fare_obj in list_of_fares:
             pricePublicTransport += fare_obj['price']
-        
+
         characteristics['price'] = pricePublicTransport
     else:
         raise NotImplementedError
-    
+
     characteristics['distance'] = response.as_dict()['response']['route'][0]['summary']['distance'] # in meters
     characteristics['time'] = response.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
 
     return characteristics
-        
+
 
 # option_list is a list of dictionaries
 def displayOptions(option_list):
@@ -73,13 +73,13 @@ def displayOptions(option_list):
 
 def getClosestInterest(position=[37.7874,-122.3964], type='supermarket'):
     """Given a position and a certain type of interest, returns the closest one of the type.
-    
+
     Parameters
     ----------
     position : list of coordonates, [Longitude, Latitude]
     type : str, optional
         Type of interest, by default 'supermarket'
-    
+
     Returns
     -------
     Place returned by API, dictionary-like
