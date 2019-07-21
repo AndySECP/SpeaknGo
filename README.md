@@ -65,7 +65,7 @@ Two UI are designed, the first one for users that are using smartphones. This on
 
 Yet, as some users, especially among the elderly, might not use smartphones on a daily basis, a simpler UI is also designed. This only consists in calling a number on any usable phone.
 
-![old_version](https://user-images.githubusercontent.com/38164557/61587186-fc8b8b80-ab39-11e9-9d82-16bb5fc3cbd0.JPG)
+![old_version_samsung](https://user-images.githubusercontent.com/38164557/61590148-11cbde80-ab69-11e9-929f-95c6c140d5e7.JPG)
 
 
 
