@@ -1,5 +1,8 @@
 import herepy
 import yaml
+import requests
+import json
+import numpy as np
 
 #Getting the API config
 with open("config.yml", 'r') as stream:
@@ -14,6 +17,7 @@ here_passwd = cfg["here_api"]["here_passwd"]
 geocoderApi = herepy.GeocoderApi(here_id, here_passwd)
 routingPublicTransportApi = herepy.public_transit_api.PublicTransitApi(here_id, here_passwd)
 routingApi = herepy.routing_api.RoutingApi(here_id, here_passwd)
+placesApi = herepy.places_api.PlacesApi(here_id, here_passwd)
 
 #####
 
@@ -24,36 +28,68 @@ end_pos_geocoder = geocoderApi.free_form('111 Charles Sunnyvale CA')
 start_pos_dict = start_pos_geocoder.as_dict()['Response']['View'][0]['Result'][0]['Location']['NavigationPosition'][0]
 end_pos_dict = end_pos_geocoder.as_dict()['Response']['View'][0]['Result'][0]['Location']['NavigationPosition'][0]
 
-#####
-
+# #####
+#
 start_pos = [start_pos_dict['Latitude'], start_pos_dict['Longitude']]
 end_pos = [end_pos_dict['Latitude'], end_pos_dict['Longitude']]
 time = '2019-07-20T12:00:00'
 
 print(start_pos)
 print(end_pos)
-
-
-carRouteResponse = routingApi.car_route(start_pos, end_pos)
-pedestrianRouteResponse = routingApi.pedastrian_route(start_pos, end_pos)
-publicTransportRouteResponse = routingApi.public_transport(start_pos, end_pos, False)
-
-distanceCar = carRouteResponse.as_dict()['response']['route'][0]['summary']['distance'] # in meters
-timeCar = carRouteResponse.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
-distancePedestrian = pedestrianRouteResponse.as_dict()['response']['route'][0]['summary']['distance'] # in meters
-timePedestrian = pedestrianRouteResponse.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
-distancePublicTransport = publicTransportRouteResponse.as_dict()['response']['route'][0]['summary']['distance'] # in meters
-timePublicTransport = publicTransportRouteResponse.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
-
-route_public_transport = routingPublicTransportApi.calculate_route(start_pos, end_pos, time)
-
-list_of_fares = route_public_transport.as_dict()['Res']['Connections']['Connection'][0]['Tariff']['Fares'][0]['Fare']
-pricePublicTransport = 0
-for fare_obj in list_of_fares:
-    pricePublicTransport += fare_obj['price']
-
-priceCar = 0.80 + 0.21*timeCar/60 + 1.10*distanceCar/1000/1.6
-
+#
+#
+# carRouteResponse = routingApi.car_route(start_pos, end_pos)
+# pedestrianRouteResponse = routingApi.pedastrian_route(start_pos, end_pos)
+# publicTransportRouteResponse = routingApi.public_transport(start_pos, end_pos, False)
+#
+# distanceCar = carRouteResponse.as_dict()['response']['route'][0]['summary']['distance'] # in meters
+# timeCar = carRouteResponse.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
+# distancePedestrian = pedestrianRouteResponse.as_dict()['response']['route'][0]['summary']['distance'] # in meters
+# timePedestrian = pedestrianRouteResponse.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
+# distancePublicTransport = publicTransportRouteResponse.as_dict()['response']['route'][0]['summary']['distance'] # in meters
+# timePublicTransport = publicTransportRouteResponse.as_dict()['response']['route'][0]['summary']['baseTime'] # in seconds
+#
+# route_public_transport = routingPublicTransportApi.calculate_route(start_pos, end_pos, time)
+#
+# list_of_fares = route_public_transport.as_dict()['Res']['Connections']['Connection'][0]['Tariff']['Fares'][0]['Fare']
+# pricePublicTransport = 0
+# for fare_obj in list_of_fares:
+#     pricePublicTransport += fare_obj['price']
+#
+# priceCar = 0.80 + 0.21*timeCar/60 + 1.10*distanceCar/1000/1.6
+#
 print('Pedestrian        Distance (km): {0:.2f}, Time (min): {1:.2f}'.format(distancePedestrian/1000, timePedestrian/60))
 print('Car               Distance (km): {0:.2f}, Time (min): {1:.2f}, Cost ($): {2:.2f}'.format(distanceCar/1000, timeCar/60, priceCar))
 print('Public transport  Distance (km): {0:.2f}, Time (min): {1:.2f}, Cost ($): {2:.2f}'.format(distancePublicTransport/1000, timePublicTransport/60, pricePublicTransport))
+
+
+######
+
+# PARAMS = {'app_id': here_id,
+#           'app_code': here_passwd,
+#           'at': "37.7874,-122.39638",
+#           'q':"supermarket"}
+# response = requests.get('https://places.cit.api.here.com/places/v1/discover/here', params=PARAMS)
+#
+# places = json.loads(response.text)['results']['items'][:]
+#
+# for place in places:
+#     # ['position', 'distance', 'title', 'averageRating', 'category', 'icon', 'vicinity', 'having', 'type', 'href', 'id']
+#     print(place['category']['id'])
+
+#####
+
+placesResponse = placesApi.nearby_places([37.7874,-122.39638])
+placesResponse = placesApi.onebox_search([37.7874,-122.39638], 'supermarket')
+
+places = placesResponse.as_dict()['results']['items']
+closest = None
+distance_closest = np.inf
+for place in places:
+    # ['position', 'distance', 'title', 'averageRating', 'category', 'icon', 'vicinity', 'having', 'type', 'href', 'id']
+    print(place['title'], place['distance'])
+    if place['distance'] < distance_closest:
+        closest = place
+
+destination = place['position']
+print(destination)

@@ -5,8 +5,13 @@
 import spacy
 from spacy import displacy
 from collections import Counter
+<<<<<<< HEAD
+=======
+from pprint import pprint
+>>>>>>> 67b4b3f0bc0af75cf6fcd6e279d9647d3b1b42cd
 import joblib
 import argparse
+
 nlp = spacy.load("en_core_web_sm")
 
 
@@ -14,7 +19,11 @@ def get_data(file):
 	''' This function get the data from the json file '''
 
 	#Extract request text information from the json file
+<<<<<<< HEAD
 	doc = joblib.load(file)	
+=======
+	doc = joblib.load(file)
+>>>>>>> 67b4b3f0bc0af75cf6fcd6e279d9647d3b1b42cd
 	#Transform the list of tokens into a single string
 	final = ' '.join(nlp(token).text_with_ws for token in doc["words"])
 
