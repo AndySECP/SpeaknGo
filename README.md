@@ -55,7 +55,7 @@ We are using HERE's API (https://developer.here.com/) to query possible mobility
 
 ## Pipeline Structure
 
-![ARCHI](./figures/pipeline_speakngo.png)
+![ARCHI](./figures/pipeline_speakngo.PNG)
 
 ## Service
 
