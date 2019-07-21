@@ -1,8 +1,19 @@
 import herepy
+import yaml
 
-geocoderApi = herepy.GeocoderApi('KWjLF73JRIp3bc2C9shL', '3LmL5-B2GYZjKmmhWtR-Ug')
-routingPublicTransportApi = herepy.public_transit_api.PublicTransitApi('KWjLF73JRIp3bc2C9shL', '3LmL5-B2GYZjKmmhWtR-Ug')
-routingApi = herepy.routing_api.RoutingApi('KWjLF73JRIp3bc2C9shL', '3LmL5-B2GYZjKmmhWtR-Ug')
+#Getting the API config
+with open("config.yml", 'r') as stream:
+    try:
+        cfg = yaml.safe_load(stream)
+    except yaml.YAMLError as exc:
+        print(exc)
+
+here_id = cfg["here_api"]["here_id"]
+here_passwd = cfg["here_api"]["here_passwd"]
+
+geocoderApi = herepy.GeocoderApi(here_id, here_passwd)
+routingPublicTransportApi = herepy.public_transit_api.PublicTransitApi(here_id, here_passwd)
+routingApi = herepy.routing_api.RoutingApi(here_id, here_passwd)
 
 #####
 
