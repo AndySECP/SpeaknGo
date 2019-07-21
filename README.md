@@ -1,4 +1,4 @@
-## Speak&Go
+## SpeaknGo
 2019 - Project for Hackmobility 2019, merging the issues of Inclusion, Mobility and Artificial Intelligence 
 <p align="center"> <img align="center" width="200" height="200" src='/figures/speakngo_logo_200x200.png'></p>
 
