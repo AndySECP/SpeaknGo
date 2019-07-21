@@ -1,6 +1,7 @@
 ## SpeaknGo
 2019 - Project for Hackmobility 2019, merging the issues of Inclusion, Mobility and Artificial Intelligence 
-<p align="center"> <img align="center" width="200" height="200" src='/figures/speakngo_logo_200x200.png'></p>
+<p align="center"> <img align="center" width="200" height="200" src='https://user-images.githubusercontent.com/17043703/61595383-6132fe80-abab-11e9-923f-8153dcf6ed75.png'></p>
+
 
 ## Abstract 
 
@@ -33,8 +34,8 @@ The output will be a dictionnary of all the words.
 
 We displayed a drawing of the words over a timeline to be able to evaluate the success of the service. 
 
-![SERVICE](./STT_process/figures/example_start_adress.png)
-![SERVICE](./STT_process/figures/example_end_adress.png)
+![start_address](https://user-images.githubusercontent.com/17043703/61595388-71e37480-abab-11e9-923e-3cbf0f638419.png)
+![end_address](https://user-images.githubusercontent.com/17043703/61595390-7576fb80-abab-11e9-8952-5ecab32fa241.png)
 
 
 ## Natural Language Processing
@@ -61,7 +62,7 @@ The users can do **two different kind of requests**:
 
 ## Pipeline Structure
 
-![ARCHI](./figures/pipeline_speakngo.PNG) 
+![pipeline]("https://user-images.githubusercontent.com/17043703/61595350-db16b800-abaa-11e9-89ad-777a00fc3e52.PNG")
 
 ## Service
 
@@ -77,7 +78,7 @@ Yet, as some users, especially among the elderly, might not use smartphones on a
 
 Below is the current version of the application's User Interface.
 
-<p align="center"> <img align="center" src='/figures/app.PNG'></p> 
+<p align="center"> <img align="center" src='https://user-images.githubusercontent.com/17043703/61595381-5c6e4a80-abab-11e9-94d6-a665e5d90393.PNG'></p> 
 
 
 
