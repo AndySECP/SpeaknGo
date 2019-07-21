@@ -5,8 +5,9 @@ from STT_process.listener import Listener
 from STT_process.google_speech_text import Voice_GGC
 from mobility_options_queries.routeComputer import RouteComputer
 from nlp.nlp import *
+from termcolor import colored
 
-_ = input('\nPress enter to start call')
+_ = input('\nPress enter to start call\n')
 
 ######### Greeting and request           #######
 
@@ -16,33 +17,44 @@ listener = Listener(7)
 greeting_text_1 = 'Welcome to Speak N Go, please say your current location'
 tts = gTTS(greeting_text_1)
 tts.save('greeting_text_1.mp3')
+print(colored(greeting_text_1, 'blue'))
 os.system('afplay greeting_text_1.mp3')
 
 listener.record_and_save('start_address')
 
+start_address_path = 'start_address.wav'
+start_request_txt = Voice_GGC().request(start_address_path)
+# drawing = Voice_GGC().draw(start_address_path, "demand_1", figsize=(6,4))
+print(colored(' '.join(word for word in start_request_txt['words']), 'green'))
+
 greeting_text_2 = 'And please say your desired destination'
 tts = gTTS(greeting_text_2)
 tts.save('greeting_text_2.mp3')
+print(colored(greeting_text_2, 'blue'))
 os.system('afplay greeting_text_2.mp3')
 
-
 listener.record_and_save('end_address')
+
+end_address_path = 'end_address.wav'
+end_request_txt = Voice_GGC().request(end_address_path)
+# drawing = Voice_GGC().draw(end_address_path, "demand_1", figsize=(6,4))
+print(colored(' '.join(word for word in end_request_txt['words']), 'green'))
 
 
 ######### Request understanding          #######
 
 # speech to text
 
-start_address_path = 'start_address.wav'
-end_address_path = 'end_address.wav'
-start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
-end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
-# drawing = Voice_GGC().draw(start_address_path, "demand_1", figsize=(6,4))
-# drawing = Voice_GGC().draw(end_address_path, "demand_1", figsize=(6,4))
-print('\n')
-print('Start location: ', ' '.join(word for word in start_request_txt['words']))
-print('Destination:    ', ' '.join(word for word in end_request_txt['words']))
-print('\n')
+# start_address_path = 'start_address.wav'
+# end_address_path = 'end_address.wav'
+# start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
+# end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
+# # drawing = Voice_GGC().draw(start_address_path, "demand_1", figsize=(6,4))
+# # drawing = Voice_GGC().draw(end_address_path, "demand_1", figsize=(6,4))
+# print('\n')
+# print(colored(' '.join(word for word in start_request_txt['words']), 'green'))
+# print(colored(' '.join(word for word in end_request_txt['words']), 'green'))
+# print('\n')
 
 
 # NLP and generation of the request dictionnary
@@ -68,7 +80,7 @@ if not is_poi:
     # compute the GPS position corresponding to the adress
     start_pos = routeComputer.computeLatLonFromAdress(start_location)
     end_pos = routeComputer.computeLatLonFromAdress(end_location)
-    transportation_types = ["car", "pedestrian", "public transport"]
+    transportation_types = ["car", "by foot", "public transport"]
 
     list_of_options = []
     for transportation_type in transportation_types:
@@ -84,9 +96,12 @@ else:
     poi_title = poi['title']
     end_pos = poi['position']
 
-    tts = gTTS('The closest ' + poi_name + ' is ' + poi_title)
+    poi_info = 'The closest ' + poi_name + ' is ' + poi_title
+    tts = gTTS(poi_info)
     tts.save('poi_info.mp3')
+    print(colored(poi_info, 'blue'))
     os.system('afplay poi_info.mp3')
+
 
     transportation_types = ["car", "by foot", "public transport"]
 
@@ -96,12 +111,12 @@ else:
         if new_option != None:
             list_of_options.append(new_option)
 
-for i, option in enumerate(list_of_options):
-    print('OPTION n°{}'.format(i+1))
-    print('Type:     ', option['type'])
-    print('Price:    ', option['price'])
-    print('Time:     ', option['time'])
-    print('\n')
+# for i, option in enumerate(list_of_options):
+#     print('OPTION n°{}'.format(i+1))
+#     print('Type:     ', option['type'])
+#     print('Price:    ', option['price'])
+#     print('Time:     ', option['time'])
+#     print('\n')
 
 ######### Presentation of the options    #######
 
@@ -125,7 +140,10 @@ for i, choice in enumerate(list_of_options):
 #compute the message to send to the user
 proposition = 'You have {} options.'.format(len(list_of_options))
 for i in range(len(list_of_options)):
-    prop_anx = 'You can choose the {}, taking {} minutes, and costing {} dollars.'.format(list_of_options[i]['type'], int(list_of_options[i]['time']), int(list_of_options[i]['price']))
+    if list_of_options[i]['type'] == 'by foot':
+        prop_anx = 'You can choose to go by foot, taking {} minutes, and costing {} dollars.'.format(int(list_of_options[i]['time']), int(list_of_options[i]['price']))
+    else:
+        prop_anx = 'You can choose the {}, taking {} minutes, and costing {} dollars.'.format(list_of_options[i]['type'], int(list_of_options[i]['time']), int(list_of_options[i]['price']))
     proposition = proposition + ' ' + prop_anx
 proposition = proposition + ' ' + 'Which option do you prefer?'
 
@@ -133,6 +151,7 @@ proposition = proposition + ' ' + 'Which option do you prefer?'
 
 tts = gTTS(proposition)
 tts.save('proposition.mp3')
+print(colored(proposition, 'blue'))
 os.system('afplay proposition.mp3')
 
 
@@ -148,7 +167,8 @@ while decision == None:
     final_choice_path = 'final_choice.wav'
     final_choice_text = Voice_GGC().request(final_choice_path)
 
-    print('Response: ', ' '.join(word for word in final_choice_text['words']))
+    final_choice_message = ' '.join(word for word in final_choice_text['words'])
+    print(colored(final_choice_message, 'green'))
 
     # NLP to understand if option 1 or 2 is perferred
 
@@ -180,8 +200,6 @@ while decision == None:
         if out[0] == 'three' or out[0] == 'third' or out[0] == '3':
             decision = 2
 
-print('Option chosen: ', list_of_options[decision]['type'])
-
 ######### Recap #######
 
 if list_of_options[decision]['type'] == 'car':
@@ -198,4 +216,5 @@ elif list_of_options[decision]['type'] == 'public transport':
 recap = 'You have chosen to ' + transportation_mode + additional_message + 'Goodbye.'
 tts = gTTS(recap)
 tts.save('recap.mp3')
+print(colored(recap, 'blue'))
 os.system('afplay recap.mp3')
