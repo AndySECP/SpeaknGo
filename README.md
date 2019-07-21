@@ -49,6 +49,10 @@ python nlp.py -r request.json
 
 We are using HERE's API (https://developer.here.com/) to query possible mobility options, along with their details such as the mode or services, total time needed, departure time associated, and cost. We can then select a limited few that would be relevant to the user, and suggest those options to the user.
 
+## Pipeline Structure
+
+[SERVICE](./figures/pipeline_speakngo.png)
+
 ## Service
 
 Two UI are designed, the first one for users that are using smartphones. This one is based on an Android interactive widget.
