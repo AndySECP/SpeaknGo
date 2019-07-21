@@ -131,7 +131,7 @@ os.system('afplay proposition.mp3')
 ######### Choice of the preferred option #######
 
 decision = None
-while decision == None
+while decision == None:
     # listen for the request
     listener = Listener(4)
     listener.record_and_save('final_choice')
@@ -151,11 +151,15 @@ while decision == None
     out = intersection(words, template)
 
     if len(out)>1:
-        print('You should only choose one option. Please, repeat your choice.')
+        tts = gTTS('Please choose only one option')
+        tts.save('error_message.mp3')
+        os.system('afplay error_message.mp3')
         continue
 
     elif len(out) == 0:
-        print('You should only choose one option. Please, repeat your choice.')
+        tts = gTTS('Please choose an option')
+        tts.save('error_message.mp3')
+        os.system('afplay error_message.mp3')
         continue
     else:
         if out[0] == 'one' or out[0] == 'first':
@@ -165,7 +169,7 @@ while decision == None
         if out[0] == 'three' or out[0] == 'third':
             decision = 2
 
-    print('Option chosen: ', list_of_options[decision]['type'])
+print('Option chosen: ', list_of_options[decision]['type'])
 
 ######### Recap #######
 
