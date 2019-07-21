@@ -56,14 +56,14 @@ def get_information(txt):
 		pass
 
     #check if the location is an address or a point of interest
-	address = False
+	is_poi = True
 	loc = infos['Location']
-	if any(char.isdigit() for char in loc): address = True
-	if 'street' in loc.lower(): address = True
-	if 'avenue' in loc.lower(): address = True
-	infos['type'] = int(address)
+	if any(char.isdigit() for char in loc): is_poi = False
+	if 'street' in loc.lower(): is_poi = False
+	if 'avenue' in loc.lower(): is_poi = False
+	infos['type'] = int(is_poi)
 
-	if not address:
+	if is_poi:
 		list_txt = txt.split(' ')
 		longest_length = len(list_txt[0])
 		longest_word = list_txt[0]

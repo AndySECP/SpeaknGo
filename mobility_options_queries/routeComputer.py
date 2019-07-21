@@ -42,54 +42,58 @@ class RouteComputer:
         time : Structured as '2019-07-20T12:00:00'
             Starting time
         transportation_type : String
-            So far, must be "car", "pedestrian" or "public transport"
+            So far, must be "car", "by foot" or "public transport"
 
         Returns
         -------
         Dictionary
             A dictionary of the characteristics:
-            Distance (in meters), time (in seconds), type (car, pedestrian, public transport), price ($)
+            Distance (in meters), time (in seconds), type (car, by foot, public transport), price ($)
         """
 
-        routingPublicTransportApi = herepy.public_transit_api.PublicTransitApi(self.HERE_ID, self.HERE_PASSWD)
-        routingApi = herepy.routing_api.RoutingApi(self.HERE_ID, self.HERE_PASSWD)
+        try:
 
-        characteristics = dict()
+            routingPublicTransportApi = herepy.public_transit_api.PublicTransitApi(self.HERE_ID, self.HERE_PASSWD)
+            routingApi = herepy.routing_api.RoutingApi(self.HERE_ID, self.HERE_PASSWD)
 
-        if transportation_type.lower() == "car":
-            response = routingApi.car_route(start_pos, end_pos)
-            characteristics['type'] = "car"
+            characteristics = dict()
+
+            if transportation_type.lower() == "car":
+                response = routingApi.car_route(start_pos, end_pos)
+                characteristics['type'] = "car"
+                characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609) # in miles
+                characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
+                characteristics['price'] = 0.80 + 0.21*characteristics['time'] + 1.10*characteristics['distance']
+            elif transportation_type.lower() == "by foot":
+                response = routingApi.pedastrian_route(start_pos, end_pos)
+                characteristics['type'] = "by foot"
+                characteristics['price'] = 0
+            elif transportation_type.lower() == "public transport":
+                response = routingApi.public_transport(start_pos, end_pos, False)
+
+                characteristics['type'] = "public transport"
+
+                time = '2019-07-21T08:00:00'
+
+                route_public_transport = routingPublicTransportApi.calculate_route(start_pos, end_pos, time)
+
+                list_of_fares = route_public_transport.as_dict()['Res']['Connections']['Connection'][0]['Tariff']['Fares'][0]['Fare']
+                pricePublicTransport = 0
+
+                for fare_obj in list_of_fares:
+                    pricePublicTransport += fare_obj['price']
+
+                characteristics['price'] = pricePublicTransport
+            else:
+                raise NotImplementedError
+
             characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609) # in miles
             characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
-            characteristics['price'] = 0.80 + 0.21*characteristics['time'] + 1.10*characteristics['distance']
-        elif transportation_type.lower() == "pedestrian":
-            response = routingApi.pedastrian_route(start_pos, end_pos)
-            characteristics['type'] = "pedestrian"
-            characteristics['price'] = 0
-        elif transportation_type.lower() == "public transport":
-            response = routingApi.public_transport(start_pos, end_pos, False)
 
-            characteristics['type'] = "public transport"
+            return characteristics
 
-            time = '2019-07-21T08:00:00'
-
-            route_public_transport = routingPublicTransportApi.calculate_route(start_pos, end_pos, time)
-
-            list_of_fares = route_public_transport.as_dict()['Res']['Connections']['Connection'][0]['Tariff']['Fares'][0]['Fare']
-            pricePublicTransport = 0
-
-            for fare_obj in list_of_fares:
-                pricePublicTransport += fare_obj['price']
-
-            characteristics['price'] = pricePublicTransport
-        else:
-            raise NotImplementedError
-
-        characteristics['distance'] = int(response.as_dict()['response']['route'][0]['summary']['distance'] / 1609) # in miles
-        characteristics['time'] = int(response.as_dict()['response']['route'][0]['summary']['baseTime'] / 60) # in minutes
-
-        return characteristics
-        
+        except:
+            return None
 
     # option_list is a list of dictionaries
     def displayOptions(self, option_list):
@@ -115,6 +119,9 @@ class RouteComputer:
         -------
         Place returned by API, dictionary-like
         """
+
+        placesApi = herepy.places_api.PlacesApi(self.HERE_ID, self.HERE_PASSWD)
+
         placesResponse = placesApi.nearby_places(position)
         placesResponse = placesApi.onebox_search(position, type)
 
@@ -123,7 +130,6 @@ class RouteComputer:
         distance_closest = np.inf
         for place in places:
             # ['position', 'distance', 'title', 'averageRating', 'category', 'icon', 'vicinity', 'having', 'type', 'href', 'id']
-            #print(place['title'], place['distance'])
             if place['distance'] < distance_closest:
                 closest_place = place
                 distance_closest = place['distance']

@@ -2,12 +2,12 @@ import pyaudio
 import wave
 
 class Listener:
-    def __init__(self):
+    def __init__(self, record_time):
         self.chunk = 1024
         self.format = pyaudio.paInt16
         self.channels = 1
         self.rate = 44100
-        self.record_seconds = 7
+        self.record_seconds = record_time
 
 
     def record_and_save(self, filename):
