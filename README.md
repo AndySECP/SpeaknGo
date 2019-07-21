@@ -17,9 +17,13 @@ Two UI have been created: a smartphone widget to easily request the ride and hav
 
 ### Equitable 
 
-How can we make transportation more accessible to everyone in society? 
-Through this project, our main targets are the **elderly** and the **disables**. Both face barriers when it come to do activities that necessitate to travel. Some people are not used to the new applications that gives access to modern transportation. Some cannot use the traditional tools to make reservations or choose a service, such as blind people. The main issue with those situations is the diffulty of using the UI of traditional services. Our solution
+*How can we make transportation more accessible to everyone in society?*
 
+Through this project, our main targets are the **elderly** and the **disables**. Both face barriers when it come to do activities that necessitate to travel. Some people are *not used to* the new applications that gives access to modern transportation (Uber, City Mapper...). Some *cannot use* the traditional tools to make reservations or choose a service, because of a disability, such as blind people. The main issue with those situations is the *diffulty of using the UI* of traditional services. 
+
+Our solution tackle this issue by providing the simplest interface. The user only have to make a voice request to his phone. This request is then analysed and all the research process is handled by the application. The user has then just to confirm which option is good for him, and the reservation is done by the application. 
+
+In addition, in order to **include the broadest possible population**, *two user interfaces* are created. One for smartphone owner, and the other, available to any person that have a phone. This last very simple UI only consists of calling a number and making the vocal request.
 ## Speech to text
 
 This module provide the knowledge to do the conversion Speech-To-Text with the use of the **API of Google Speech**.
