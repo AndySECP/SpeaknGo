@@ -24,6 +24,8 @@ Using the text generated in a json format, a NLP **Named Entity Recognition** mo
 
 ## Determination of the best ride
 
+We are using HERE's API (https://developer.here.com/) to query possible mobility options, along with their details such as the mode or services, total time needed, departure time associated, and cost. We can then select a limited few that would be relevant to the user, and suggest those options to the user.
+
 ## Service
 
 
