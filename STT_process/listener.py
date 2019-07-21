@@ -1,5 +1,7 @@
 import pyaudio
 import wave
+from termcolor import colored
+
 
 class Listener:
     def __init__(self, record_time):
@@ -21,7 +23,7 @@ class Listener:
                         input=True,
                         frames_per_buffer=self.chunk)
 
-        print("* recording")
+        print(colored("   * recording", 'grey'))
 
         frames = []
 
@@ -29,7 +31,7 @@ class Listener:
             data = stream.read(self.chunk)
             frames.append(data)
 
-        print("* done recording")
+        print(colored("   * done recording", 'grey'))
 
         stream.stop_stream()
         stream.close()
