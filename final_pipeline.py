@@ -86,6 +86,28 @@ if is_address:
 
 ######### Presentation of the options    #######
 
+#compute the statistics of the options
+mean_dist = np.mean([list_opp[i]['distance'] for i in range(len(list_opp))])
+mean_price = np.mean([list_opp[i]['price'] for i in range(len(list_opp))])
+mean_time = np.mean([list_opp[i]['time'] for i in range(len(list_opp))])
+std_dist = np.std([list_opp[i]['distance'] for i in range(len(list_opp))])
+std_price = np.std([list_opp[i]['price'] for i in range(len(list_opp))])
+std_time = np.std([list_opp[i]['time'] for i in range(len(list_opp))])
+
+#add a filter: if a value is two standard deviation away or if one option proposes more than two hours of walking, we remove this option 
+for i, choice in enumerate(list_opp):    
+    if (choice['distance'] >= mean_dist + 2 * std_dist) or (choice['time'] >= mean_time + 2 * std_time) or (choice['price'] >= mean_time + 2 * std_time):
+        del list_opp[i]
+    if choice['type'] == 'pedestrian' and choice['time'] >= 120:
+        del list_opp[i]
+
+#compute the message to send to the user
+proposition = 'You have {} options.'.format(len(list_opp))
+for i in range(len(list_opp)):
+    prop_anx = 'You can choose the {} with a distance of {} miles, that would take {} minutes, for a price of {} dollars.'.format(list_opp[i]['type'], list_opp[i]['distance'], list_opp[i]['time'], list_opp[i]['price'])
+    proposition = proposition + ' ' + prop_anx
+proposition = proposition + ' ' + 'Which option do you prefer?'
+
 # TODO generate the audio file
 
 # tts = gTTS('Here are the two options.' + {transport}[0] + 'for a duration of' +{duration}[0] + 'and a cost of'
