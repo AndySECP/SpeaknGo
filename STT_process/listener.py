@@ -7,7 +7,8 @@ class Listener:
         self.format = pyaudio.paInt16
         self.channels = 1
         self.rate = 44100
-        self.record_seconds = 5
+        self.record_seconds = 7
+
 
     def record_and_save(self, filename):
         p = pyaudio.PyAudio()
@@ -35,8 +36,13 @@ class Listener:
         p.terminate()
 
         wf = wave.open(filename, 'wb')
-        wf.setnchannels(self.format)
+        wf.setnchannels(self.channels)
         wf.setsampwidth(p.get_sample_size(self.format))
         wf.setframerate(self.rate)
         wf.writeframes(b''.join(frames))
         wf.close()
+
+
+if __name__ == '__main__':
+    listener = Listener()
+    listener.record_and_save('test_duration')

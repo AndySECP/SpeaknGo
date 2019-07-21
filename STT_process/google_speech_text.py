@@ -47,7 +47,7 @@ class Voice_GGC:
         fle.close()
 
         arg = {'language_code': 'en-US', 'enable_word_time_offsets': True}
-        cfg = types.RecognitionConfig(sample_rate_hertz=rte, **arg)
+        cfg = types.RecognitionConfig(sample_rate_hertz=rte, audio_channel_count=fle.getnchannels(), **arg)
 
         raw = io.open(voice_path, 'rb')
         fle = types.RecognitionAudio(content=raw.read())
