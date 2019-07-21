@@ -5,4 +5,4 @@
 __pycache__/
 STT_process/__pycache__/
 api-key.json
-
+*.mp3

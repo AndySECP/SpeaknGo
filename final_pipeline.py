@@ -38,8 +38,10 @@ end_address_path = 'end_address_supermarket.wav'
 start_request_txt = Voice_GGC().request(start_address_path) # TODO CHANNEL ERROR
 end_request_txt = Voice_GGC().request(end_address_path) # TODO CHANNEL ERROR
 #drawing = Voice_GGC().draw(request_txt, "demand_1", figsize=(6,4))
-print(start_request_txt)
-print(end_request_txt)
+print('\n\n')
+print('Start location: ', ' '.join(word for word in start_request_txt['words']))
+print('Destination:    ', ' '.join(word for word in end_request_txt['words']))
+print('\n')
 
 
 # NLP and generation of the request dictionnary
@@ -48,8 +50,6 @@ start_txt = get_data(start_request_txt)
 start_request = get_information(start_txt)
 end_txt = get_data(end_request_txt)
 end_request = get_information(end_txt)
-print(start_request)
-print(end_request)
 
 
 ######### Request to HERE API            #######
@@ -86,11 +86,16 @@ else:
     list_of_options = []
     for transportation_type in transportation_types:
         new_option = routeComputer.getOptionTwoAdresses(start_pos, end_pos, time, transportation_type)
-        print(new_option)
         if new_option != None:
             list_of_options.append(new_option)
 
-print(list_of_options)
+for i, option in enumerate(list_of_options):
+    print('OPTION n°{}'.format(i+1))
+    print('Mean:     ', option['type'])
+    print('Distance: ', option['distance'])
+    print('Price:    ', option['price'])
+    print('Time:     ', option['time'])
+    print('\n')
 
 ######### Presentation of the options    #######
 
@@ -125,34 +130,42 @@ os.system('afplay proposition.mp3')
 
 ######### Choice of the preferred option #######
 
-# listen for the request
-listener = Listener(4)
-listener.record_and_save('final_choice')
+decision = None
+while decision == None
+    # listen for the request
+    listener = Listener(4)
+    listener.record_and_save('final_choice')
 
-# speech to text
+    # speech to text
+    final_choice_path = 'final_choice.wav'
+    final_choice_text = Voice_GGC().request(final_choice_path)
 
-final_choice_path = 'final_choice.wav'
-final_choice_text = Voice_GGC().request(final_choice_path)
+    # NLP to understand if option 1 or 2 is perferred
 
-# NLP to understand if option 1 or 2 is perferred
+    def intersection(lst1, lst2):
+        lst3 = [value for value in lst1 if value in lst2]
+        return lst3
 
-def intersection(lst1, lst2):
-    lst3 = [value for value in lst1 if value in lst2]
-    return lst3
+    template = ['first', 'second', 'third', 'one', 'two', 'three']
+    words = ' '.join(word for word in final_choice_text['words']).lower().split()
+    out = intersection(words, template)
 
-template = ['first', 'second', 'third', 'one', 'two', 'three']
-words = ' '.join(word for word in final_choice_text['words']).lower().split()
-out = intersection(words, template)
+    if len(out)>1:
+        print('You should only choose one option. Please, repeat your choice.')
+        continue
 
-if len(out)>1:
-    print('You sould only choose one option. Please, repeat your choice.')
+    elif len(out) == 0:
+        print('You should only choose one option. Please, repeat your choice.')
+        continue
+    else:
+        if out[0] == 'one' or out[0] == 'first':
+            decision = 0
+        if out[0] == 'two' or out[0] =='second':
+            decision = 1
+        if out[0] == 'three' or out[0] == 'third':
+            decision = 2
 
-if out[0] == 'one' or out[0] == 'first':
-    decision = 0
-if out[0] == 'two' or out[0] =='second':
-    decision = 1
-if out[0] == 'three' or out[0] == 'third':
-    decision = 2
+    print('Option chosen: ', list_of_options[decision]['type'])
 
 ######### Recap #######
 
