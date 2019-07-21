@@ -53,6 +53,12 @@ python nlp.py -r request.json
 
 We are using HERE's API (https://developer.here.com/) to query possible mobility options, along with their details such as the mode or services, total time needed, departure time associated, and cost. We can then select a limited few that would be relevant to the user, and suggest those options to the user.
 
+Once the model has determined the best options, it **proposes the three best** to users that can **make a choice**, based on different criterion (*mode of transportation*, *price* or *duration*). Then, the request is stored in the **database** with the addresse, date and time. A couple of time before the ride, SpeaknGo gives a **reminder to the user** and confirm the reservation. The user has then just to go to its destinations.
+
+The users can do **two different kind of requests**:
+- A *specific address* that is extracted with the NLP model and the best solutions to get there is calculated
+- A *point of interest*, such as a supermarket or the gym. In that case, the model look for closest options and displays them in its propositions. The users has then just to decide its prefered option.
+
 ## Pipeline Structure
 
 ![ARCHI](./figures/pipeline_speakngo.PNG)
