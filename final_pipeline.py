@@ -2,6 +2,7 @@
 
 from imports import *
 from STT_process.listener import Listener
+from STT_process.google_speech_text import Voice_GGC
 <<<<<<< HEAD
 from mobility_options_queries.routeComputer import RouteComputer
 =======
@@ -21,6 +22,12 @@ listener = Listener()
 ######### Request understanding          #######
 
 # TODO speech to text
+
+s_path = 'request.wav'
+text = Voice_GGC().request(s_path)
+#drawing = Voice_GGC().draw(text, "demand_1", figsize=(6,4))
+#print(text)
+
 
 # TODO NLP and generation of the request dictionnary
 
@@ -65,6 +72,11 @@ dict_andy = infos
 
 # TODO generate the audio file
 
+tts = gTTS('Here are the two options.' + {transport}[0] + 'for a duration of' +{duration}[0] + 'and a cost of'
+           {cost}[0] '.'+ 'or' + {transport}[1])'for a duration of' +{duration}[1] + 'and a cost of'
+           {cost}[1] '.'
+tts.save('options.mp3')
+os.system('start current_location.mp3')
 
 
 ######### Choice of the preferred option #######
@@ -73,6 +85,10 @@ dict_andy = infos
 # listener.record_and_save('final_choice')
 
 # TODO speech to text
+
+s_path = 'final_choice.wav'
+text = Voice_GGC().request(s_path)
+
 
 # TODO NLP to understand if option 1 or 2 is perferred
 
