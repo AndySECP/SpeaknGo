@@ -27,8 +27,8 @@ The output will be a dictionnary of all the words.
 
 We displayed a drawing of the words over a timeline to be able to evaluate the success of the service. 
 
-![SERVICE](./figures/example_start_adress.png)
-![SERVICE](./figures/example_end_adress.png)
+![SERVICE](./STT_process/figures/example_start_adress.png)
+![SERVICE](./STT_process/figures/example_end_adress.png)
 
 
 ## Natural Language Processing
