@@ -20,6 +20,9 @@ import pyaudio
 import herepy
 import requests
 
+# Text to Speech Google
+from gtts import gTTS
+
 # Google Cloud package
 from google.oauth2 import service_account
 from google.cloud import speech
