@@ -75,7 +75,7 @@ Yet, as some users, especially among the elderly, might not use smartphones on a
 
 ## Example of App service
 
-Below is the current version of the application User Interface.
+Below is the current version of the application's User Interface.
 
 <p align="center"> <img align="center" src='/figures/app.PNG'></p> 
 
