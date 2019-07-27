@@ -68,11 +68,15 @@ The users can do **two different kind of requests**:
 
 Two UI are designed, the first one for users that are using smartphones. This one is based on an Android interactive widget.
 
-![mobile_ui](https://user-images.githubusercontent.com/38164557/61587176-d1a13780-ab39-11e9-9052-48e869b0109b.JPG)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/38164557/61587176-d1a13780-ab39-11e9-9052-48e869b0109b.JPG" width="500">
+</p>
 
 Yet, as some users, especially among the elderly, might not use smartphones on a daily basis, a simpler UI is also designed. This only consists in calling a number on any usable phone.
 
-![old_version_samsung](https://user-images.githubusercontent.com/38164557/61590148-11cbde80-ab69-11e9-929f-95c6c140d5e7.JPG)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/38164557/61590148-11cbde80-ab69-11e9-929f-95c6c140d5e7.JPG" width="500">
+</p>
 
 ## Example of App service
 
