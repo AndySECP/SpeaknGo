@@ -62,7 +62,7 @@ The users can do **two different kind of requests**:
 
 ## Pipeline Structure
 
-![pipeline]("https://user-images.githubusercontent.com/17043703/61595350-db16b800-abaa-11e9-89ad-777a00fc3e52.PNG")
+<img width="850" alt="pipeline_speakngo_1" src="https://user-images.githubusercontent.com/38164557/61998445-0abf3780-b065-11e9-8258-934dfa239ebc.PNG">
 
 ## Service
 
