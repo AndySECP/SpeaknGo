@@ -1,0 +1,8 @@
+*.yml
+*.DS_Store
+*.wav
+*.ipynb_checkpoints*
+__pycache__/
+STT_process/__pycache__/
+api-key.json
+*.mp3
