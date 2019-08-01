@@ -19,6 +19,8 @@ import en_core_web_sm
 import pyaudio
 import herepy
 import requests
+from flask import Flask, request, render_template, flash, redirect, url_for, session, logging, jsonify, Response
+
 
 # Text to Speech Google
 from gtts import gTTS
